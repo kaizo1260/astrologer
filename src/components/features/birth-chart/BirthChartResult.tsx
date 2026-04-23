@@ -4,6 +4,8 @@ import { BirthChartResponse, PlanetData } from '@/lib/types';
 import { SvgChartDisplay } from '@/components/charts/SvgChartDisplay';
 import { PlanetTable } from '@/components/charts/PlanetTable';
 import { GlowCard } from '@/components/ui/GlowCard';
+import { DataTable } from '@/components/ui/DataTable';
+import { JsonViewer } from '@/components/ui/JsonViewer';
 import { getZodiacEmoji } from '@/lib/utils';
 
 interface BirthChartResultProps {
@@ -18,6 +20,12 @@ export function BirthChartResult({ data }: BirthChartResultProps) {
   const planets = Array.isArray(planetsData)
     ? Object.assign({}, ...planetsData.map((p) => ({ [p.name]: p })))
     : (planetsData as Record<string, PlanetData>);
+
+  // Prepare planets data for table
+  const planetsArray: PlanetData[] = Array.isArray(planetsData) ? planetsData :
+    (Object.values(planets).filter((p) => p && typeof p === 'object') as PlanetData[]);
+
+  const housesData = data.data?.houses || (data.chart_data?.houses ? Object.values(data.chart_data.houses) : null);
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -71,6 +79,35 @@ export function BirthChartResult({ data }: BirthChartResultProps) {
 
       {/* All Planets */}
       {planetsData && <PlanetTable planets={planetsData} title="Tất Cả Hành Tinh" />}
+
+      {/* Chart Data Table */}
+      {planetsArray.length > 0 && (
+        <DataTable
+          data={planetsArray.map((p: PlanetData) => ({
+            Name: p.name,
+            Sign: p.sign,
+            Position: p.position?.toFixed(2),
+            House: p.house || '-',
+            Retrograde: p.retrograde ? 'Yes' : 'No',
+            Speed: p.speed?.toFixed(2) || '-',
+          }))}
+          title="Chart Data - Planets"
+        />
+      )}
+
+      {housesData && housesData.length > 0 && (
+        <DataTable
+          data={housesData.map((h) => ({
+            Name: h.name,
+            Sign: h.sign,
+            Position: h.position?.toFixed(2) || String(h.position),
+          }))}
+          title="Chart Data - Houses"
+        />
+      )}
+
+      {/* JSON Data */}
+      <JsonViewer data={data} title="JSON Data - Full Response" />
     </div>
   );
 }

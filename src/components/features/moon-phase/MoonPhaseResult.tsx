@@ -2,6 +2,8 @@
 
 import { MoonPhaseResponse } from '@/lib/types';
 import { GlowCard } from '@/components/ui/GlowCard';
+import { DataTable } from '@/components/ui/DataTable';
+import { JsonViewer } from '@/components/ui/JsonViewer';
 
 interface MoonPhaseResultProps {
   data: MoonPhaseResponse;
@@ -109,6 +111,22 @@ export function MoonPhaseResult({ data }: MoonPhaseResultProps) {
           ))}
         </div>
       </GlowCard>
+
+      {/* Chart Data Table */}
+      <DataTable
+        data={[
+          {
+            'Phase Name': phase,
+            'Illumination': `${illumination.toFixed(1)}%`,
+            'Age (days)': moonAge !== undefined ? moonAge.toFixed(1) : '-',
+            'Distance (km)': distanceKm !== undefined ? distanceKm.toFixed(0) : '-',
+          },
+        ]}
+        title="Chart Data - Moon Phase"
+      />
+
+      {/* JSON Data */}
+      <JsonViewer data={data} title="JSON Data - Full Response" />
     </div>
   );
 }

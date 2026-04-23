@@ -1,8 +1,10 @@
 'use client';
 
-import { TransitResponse } from '@/lib/types';
+import { TransitResponse, PlanetData } from '@/lib/types';
 import { SvgChartDisplay } from '@/components/charts/SvgChartDisplay';
 import { GlowCard } from '@/components/ui/GlowCard';
+import { DataTable } from '@/components/ui/DataTable';
+import { JsonViewer } from '@/components/ui/JsonViewer';
 
 interface TransitResultProps {
   data: TransitResponse;
@@ -10,6 +12,10 @@ interface TransitResultProps {
 
 export function TransitResult({ data }: TransitResultProps) {
   const svgChart = data.chart || data.data?.svg;
+  const transitsData = data.chart_data?.transits || data.data?.transits;
+
+  // Prepare transits data for table
+  const transitsArray = Array.isArray(transitsData) ? transitsData : [];
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -37,6 +43,24 @@ export function TransitResult({ data }: TransitResultProps) {
           có thể dương tính hay âm tính tùy thuộc vào loại khía cạnh.
         </p>
       </GlowCard>
+
+      {/* Chart Data Table */}
+      {transitsArray.length > 0 && (
+        <DataTable
+          data={transitsArray.map((p: PlanetData) => ({
+            Name: p.name,
+            Sign: p.sign,
+            Position: p.position?.toFixed(2),
+            House: p.house || '-',
+            Retrograde: p.retrograde ? 'Yes' : 'No',
+            Speed: p.speed?.toFixed(2) || '-',
+          }))}
+          title="Chart Data - Transit Planets"
+        />
+      )}
+
+      {/* JSON Data */}
+      <JsonViewer data={data} title="JSON Data - Full Response" />
     </div>
   );
 }

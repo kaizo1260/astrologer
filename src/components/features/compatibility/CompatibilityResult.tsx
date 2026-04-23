@@ -2,6 +2,8 @@
 
 import { CompatibilityResponse } from '@/lib/types';
 import { GlowCard } from '@/components/ui/GlowCard';
+import { DataTable } from '@/components/ui/DataTable';
+import { JsonViewer } from '@/components/ui/JsonViewer';
 
 interface CompatibilityResultProps {
   data: CompatibilityResponse;
@@ -128,6 +130,37 @@ export function CompatibilityResult({ data }: CompatibilityResultProps) {
           </div>
         </div>
       )}
+
+      {/* Chart Data Table - Score Breakdown */}
+      {breakdown.length > 0 && (
+        <DataTable
+          data={breakdown.map((item) => ({
+            Rule: item.rule,
+            Description: item.description,
+            Points: item.points,
+            Details: item.details || '-',
+          }))}
+          title="Chart Data - Score Breakdown"
+        />
+      )}
+
+      {/* Chart Data Table - Aspects */}
+      {aspects.length > 0 && (
+        <DataTable
+          data={aspects.map((a) => ({
+            'Planet 1': a.p1_name,
+            'Planet 2': a.p2_name,
+            Aspect: a.aspect,
+            Orbit: a.orbit?.toFixed(2) || '-',
+            Movement: a.aspect_movement || '-',
+            'Aspect Degrees': a.aspect_degrees?.toFixed(2) || '-',
+          }))}
+          title="Chart Data - Aspects"
+        />
+      )}
+
+      {/* JSON Data */}
+      <JsonViewer data={data} title="JSON Data - Full Response" />
     </div>
   );
 }
