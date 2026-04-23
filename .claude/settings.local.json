@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(curl -X POST https://astrologer.p.rapidapi.com/api/v5/moon-phase -H 'Content-Type: application/json' -H 'X-RapidAPI-Key: 2c49502b4dmshbc5520132dbd29bp12bdcfjsn1b59d797c15b' -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' --data '{\"year\":2024,\"month\":4,\"day\":23,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\"}')",
+      "Bash(curl -X POST https://astrologer.p.rapidapi.com/api/v5/chart/transit -H 'Content-Type: application/json' -H 'X-RapidAPI-Key: 2c49502b4dmshbc5520132dbd29bp12bdcfjsn1b59d797c15b' -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' --data '{\"subject\":{\"name\":\"Test\",\"year\":1990,\"month\":1,\"day\":1,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\"},\"transit_subject\":{\"year\":2024,\"month\":4,\"day\":23,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\"}}')",
+      "Bash(curl -X POST https://astrologer.p.rapidapi.com/api/v5/chart/transit -H 'Content-Type: application/json' -H 'X-RapidAPI-Key: 2c49502b4dmshbc5520132dbd29bp12bdcfjsn1b59d797c15b' -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' --data '{\"first_subject\":{\"name\":\"Test\",\"year\":1990,\"month\":1,\"day\":1,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\",\"city\":\"Ho Chi Minh City\",\"nation\":\"VN\"},\"transit_subject\":{\"year\":2024,\"month\":4,\"day\":23,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\",\"city\":\"Ho Chi Minh City\",\"nation\":\"VN\"}}')",
+      "Bash(curl -X POST https://astrologer.p.rapidapi.com/api/v5/compatibility-score -H 'Content-Type: application/json' -H 'X-RapidAPI-Key: 2c49502b4dmshbc5520132dbd29bp12bdcfjsn1b59d797c15b' -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' --data '{\"first_subject\":{\"name\":\"Person A\",\"year\":1990,\"month\":1,\"day\":1,\"hour\":12,\"minute\":0,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\",\"city\":\"Ho Chi Minh City\",\"nation\":\"VN\"},\"second_subject\":{\"name\":\"Person B\",\"year\":1995,\"month\":6,\"day\":15,\"hour\":14,\"minute\":30,\"latitude\":10.7769,\"longitude\":106.7009,\"timezone\":\"Asia/Ho_Chi_Minh\",\"city\":\"Ho Chi Minh City\",\"nation\":\"VN\"}}')",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

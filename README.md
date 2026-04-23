@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chiêm Tinh Học - Astrology Web App
 
-## Getting Started
+A modern astrology web application built with Next.js 14, TypeScript, and Tailwind CSS. Powered by the Astrologer API v5 from RapidAPI.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **📍 Birth Chart (Lá Số Tử Vi)** - Discover your natal chart with all planetary positions
+- **♾️ Compatibility (Hợp Tuổi)** - Check compatibility between two people with detailed aspect analysis
+- **🌙 Moon Phase (Pha Mặt Trăng)** - View current moon phase and its influence
+- **⭐ Transit Chart (Hành Tinh Hiện Tại)** - See current planetary transits affecting you
+
+## Setup
+
+### 1. Get RapidAPI Key
+
+1. Visit: https://rapidapi.com/gbattaglia/api/astrologer
+2. Subscribe to any plan (Free tier available)
+3. Copy your `X-RapidAPI-Key` from the Header Parameters section
+
+### 2. Configure Environment
+
+Create `.env.local` in the project root:
+
+```
+RAPIDAPI_KEY=your_key_from_rapidapi
+RAPIDAPI_HOST=astrologer.p.rapidapi.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Install & Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies (already done)
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Start development server
+npm run dev
+```
 
-## Learn More
+Visit: http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS with custom cosmic theme
+- **Language:** TypeScript
+- **API:** All calls proxied through Next.js API routes for security
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/              # Pages: birth-chart, compatibility, moon-phase, transit
+├── api/              # API proxy routes (keep RAPIDAPI_KEY secret)
+├── components/
+│   ├── layout/       # Navbar, Footer, StarBackground
+│   ├── ui/           # GlowCard, MysticButton, SectionHeader, etc.
+│   ├── forms/        # SubjectForm (reusable birth data form)
+│   ├── charts/       # SvgChartDisplay, PlanetTable
+│   └── features/     # Feature-specific form & result components
+├── hooks/            # useBirthChart, useCompatibility, useMoonPhase, useTransit
+└── lib/
+    ├── types.ts      # All TypeScript interfaces
+    ├── api-client.ts # Client-side fetch helpers
+    ├── astrologer-api.ts # Server-side API wrapper
+    └── utils.ts      # Formatters, zodiac data, etc.
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm start
+```
+
+---
+
+Built with ⭐ and powered by Astrologer API v5
