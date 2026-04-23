@@ -7,11 +7,17 @@ interface DataTableProps {
 }
 
 export function DataTable({ data, title = 'Data Table', columns }: DataTableProps) {
-  if (!data || data.length === 0) {
+  if (!data || !Array.isArray(data) || data.length === 0) {
     return null;
   }
 
-  const tableColumns = columns || Object.keys(data[0] || {});
+  // Filter out empty objects
+  const validData = data.filter((row) => row && Object.keys(row).length > 0);
+  if (validData.length === 0) {
+    return null;
+  }
+
+  const tableColumns = columns || Object.keys(validData[0] || {});
 
   return (
     <div className="mb-8">
@@ -31,7 +37,7 @@ export function DataTable({ data, title = 'Data Table', columns }: DataTableProp
             </tr>
           </thead>
           <tbody>
-            {data.map((row, idx) => (
+            {validData.map((row, idx) => (
               <tr
                 key={idx}
                 className="border-b border-cosmic-border hover:bg-cosmic-card/50 transition-colors"

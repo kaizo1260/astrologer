@@ -48,12 +48,12 @@ export function TransitResult({ data }: TransitResultProps) {
       {transitsArray.length > 0 && (
         <DataTable
           data={transitsArray.map((p: PlanetData) => ({
-            Name: p.name,
-            Sign: p.sign,
-            Position: p.position?.toFixed(2),
-            House: p.house || '-',
+            Name: p.name || '-',
+            Sign: p.sign || '-',
+            Position: p.position ? p.position.toFixed(2) : '-',
+            House: p.house ? String(p.house) : '-',
             Retrograde: p.retrograde ? 'Yes' : 'No',
-            Speed: p.speed?.toFixed(2) || '-',
+            Speed: p.speed ? p.speed.toFixed(2) : '-',
           }))}
           title="Chart Data - Transit Planets"
         />

@@ -84,12 +84,12 @@ export function BirthChartResult({ data }: BirthChartResultProps) {
       {planetsArray.length > 0 && (
         <DataTable
           data={planetsArray.map((p: PlanetData) => ({
-            Name: p.name,
-            Sign: p.sign,
-            Position: p.position?.toFixed(2),
-            House: p.house || '-',
+            Name: p.name || '-',
+            Sign: p.sign || '-',
+            Position: p.position ? p.position.toFixed(2) : '-',
+            House: p.house ? String(p.house) : '-',
             Retrograde: p.retrograde ? 'Yes' : 'No',
-            Speed: p.speed?.toFixed(2) || '-',
+            Speed: p.speed ? p.speed.toFixed(2) : '-',
           }))}
           title="Chart Data - Planets"
         />
@@ -98,9 +98,9 @@ export function BirthChartResult({ data }: BirthChartResultProps) {
       {housesData && housesData.length > 0 && (
         <DataTable
           data={housesData.map((h) => ({
-            Name: h.name,
-            Sign: h.sign,
-            Position: h.position?.toFixed(2) || String(h.position),
+            Name: h.name || '-',
+            Sign: h.sign || '-',
+            Position: h.position ? h.position.toFixed(2) : '-',
           }))}
           title="Chart Data - Houses"
         />

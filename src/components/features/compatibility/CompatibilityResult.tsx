@@ -135,9 +135,9 @@ export function CompatibilityResult({ data }: CompatibilityResultProps) {
       {breakdown.length > 0 && (
         <DataTable
           data={breakdown.map((item) => ({
-            Rule: item.rule,
-            Description: item.description,
-            Points: item.points,
+            Rule: item.rule || '-',
+            Description: item.description || '-',
+            Points: String(item.points || '-'),
             Details: item.details || '-',
           }))}
           title="Chart Data - Score Breakdown"
@@ -148,12 +148,12 @@ export function CompatibilityResult({ data }: CompatibilityResultProps) {
       {aspects.length > 0 && (
         <DataTable
           data={aspects.map((a) => ({
-            'Planet 1': a.p1_name,
-            'Planet 2': a.p2_name,
-            Aspect: a.aspect,
-            Orbit: a.orbit?.toFixed(2) || '-',
+            'Planet 1': a.p1_name || '-',
+            'Planet 2': a.p2_name || '-',
+            Aspect: a.aspect || '-',
+            Orbit: a.orbit ? a.orbit.toFixed(2) : '-',
             Movement: a.aspect_movement || '-',
-            'Aspect Degrees': a.aspect_degrees?.toFixed(2) || '-',
+            'Aspect Degrees': a.aspect_degrees ? a.aspect_degrees.toFixed(2) : '-',
           }))}
           title="Chart Data - Aspects"
         />

@@ -116,10 +116,10 @@ export function MoonPhaseResult({ data }: MoonPhaseResultProps) {
       <DataTable
         data={[
           {
-            'Phase Name': phase,
+            'Phase Name': phase || '-',
             'Illumination': `${illumination.toFixed(1)}%`,
-            'Age (days)': moonAge !== undefined ? moonAge.toFixed(1) : '-',
-            'Distance (km)': distanceKm !== undefined ? distanceKm.toFixed(0) : '-',
+            'Age (days)': moonAge !== undefined ? String(moonAge.toFixed(1)) : '-',
+            'Distance (km)': distanceKm !== undefined ? String(distanceKm.toFixed(0)) : '-',
           },
         ]}
         title="Chart Data - Moon Phase"
