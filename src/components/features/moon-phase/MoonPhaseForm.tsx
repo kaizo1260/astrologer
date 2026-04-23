@@ -11,7 +11,6 @@ interface MoonPhaseFormState {
   hour: number;
   minute: number;
   city: string;
-  nation: string;
 }
 
 interface MoonPhaseFormProps {
@@ -28,7 +27,6 @@ export function MoonPhaseForm({ onSubmit, loading = false }: MoonPhaseFormProps)
     hour: today.getHours(),
     minute: today.getMinutes(),
     city: 'Ho Chi Minh City',
-    nation: 'VN',
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -146,19 +144,6 @@ export function MoonPhaseForm({ onSubmit, loading = false }: MoonPhaseFormProps)
           />
         </div>
 
-        {/* Quốc gia */}
-        <div>
-          <label className="block text-cosmic-text text-sm mb-2">Quốc Gia</label>
-          <input
-            type="text"
-            name="nation"
-            value={data.nation}
-            onChange={handleChange}
-            placeholder="Ví dụ: VN"
-            className="w-full bg-cosmic-bg border border-cosmic-border rounded px-3 py-2 text-cosmic-text placeholder-cosmic-muted focus:outline-none focus:border-cosmic-gold"
-            required
-          />
-        </div>
       </div>
 
       <MysticButton type="submit" disabled={loading} className="w-full">

@@ -15,14 +15,13 @@ interface MoonPhaseFormState {
   hour: number;
   minute: number;
   city: string;
-  nation: string;
 }
 
 export default function MoonPhasePage() {
   const { result, loading, error, fetch } = useMoonPhase();
 
   const handleFetch = async (data: MoonPhaseFormState) => {
-    fetch(data.year, data.month, data.day, data.hour, data.minute, data.city, data.nation);
+    fetch(data.year, data.month, data.day, data.hour, data.minute, data.city);
   };
 
   return (

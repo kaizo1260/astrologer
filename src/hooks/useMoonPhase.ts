@@ -15,13 +15,12 @@ export function useMoonPhase() {
     day: number,
     hour: number,
     minute: number,
-    city: string,
-    nation: string
+    city: string
   ) => {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchMoonPhase(year, month, day, hour, minute, city, nation);
+      const data = await fetchMoonPhase(year, month, day, hour, minute, city);
       setResult(data);
     } catch {
       setError('Không thể tải pha mặt trăng. Vui lòng thử lại.');

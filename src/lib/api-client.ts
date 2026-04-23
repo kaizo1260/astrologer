@@ -5,7 +5,7 @@ export async function fetchBirthChart(subject: SubjectInput) {
   // Get coordinates if not provided
   const enrichedSubject = { ...subject };
   if (!enrichedSubject.latitude || !enrichedSubject.longitude) {
-    const coords = await getCoordinatesFromCity(subject.city, subject.nation);
+    const coords = await getCoordinatesFromCity(subject.city);
     enrichedSubject.latitude = coords.latitude;
     enrichedSubject.longitude = coords.longitude;
     enrichedSubject.timezone = coords.timezone;
@@ -53,10 +53,9 @@ export async function fetchMoonPhase(
   day: number,
   hour: number,
   minute: number,
-  city: string,
-  nation: string
+  city: string
 ) {
-  const coords = await getCoordinatesFromCity(city, nation);
+  const coords = await getCoordinatesFromCity(city);
 
   const response = await fetch('/api/moon-phase', {
     method: 'POST',
@@ -82,7 +81,7 @@ export async function fetchTransit(
 ) {
   const natal = await enrichSubjectWithCoordinates(natalSubject);
   const transitSubject = transitDate ? transitDate : getNowDate();
-  const coords = await getCoordinatesFromCity(natalSubject.city, natalSubject.nation);
+  const coords = await getCoordinatesFromCity(natalSubject.city);
 
   const response = await fetch('/api/transit', {
     method: 'POST',
@@ -122,7 +121,7 @@ async function enrichSubjectWithCoordinates(
     return subject;
   }
 
-  const coords = await getCoordinatesFromCity(subject.city, subject.nation);
+  const coords = await getCoordinatesFromCity(subject.city);
   return {
     ...subject,
     latitude: coords.latitude,

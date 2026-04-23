@@ -73,8 +73,7 @@ const cityCoordinates: Record<string, GeocodingResult> = {
 };
 
 export async function getCoordinatesFromCity(
-  city: string,
-  nation?: string
+  city: string
 ): Promise<GeocodingResult> {
   const cityKey = city.toLowerCase();
 
@@ -85,7 +84,6 @@ export async function getCoordinatesFromCity(
 
   // Fallback to Nominatim (OpenStreetMap) - free geocoding service
   try {
-    const query = nation ? `${city}, ${nation}` : city;
     const response = await fetch(
       `https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(city)}&format=json&limit=1`,
       { headers: { 'User-Agent': 'AstrologerApp' } }
@@ -106,7 +104,7 @@ export async function getCoordinatesFromCity(
       longitude: parseFloat(lon),
       timezone,
     };
-  } catch (error) {
+  } catch {
     // Fallback: return Ho Chi Minh City coordinates
     console.warn(`Could not find coordinates for ${city}, using default`);
     return cityCoordinates['ho chi minh city'];
