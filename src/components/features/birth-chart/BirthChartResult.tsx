@@ -19,13 +19,13 @@ export function BirthChartResult({ data }: BirthChartResultProps) {
   // Convert to object if array
   const planets = Array.isArray(planetsData)
     ? Object.assign({}, ...planetsData.map((p) => ({ [p.name]: p })))
-    : (planetsData as Record<string, PlanetData>);
+    : (planetsData || {}) as Record<string, PlanetData>;
 
   // Prepare planets data for table
   const planetsArray: PlanetData[] = Array.isArray(planetsData) ? planetsData :
-    (Object.values(planets).filter((p) => p && typeof p === 'object') as PlanetData[]);
+    (planets ? Object.values(planets).filter((p) => p && typeof p === 'object') as PlanetData[] : []);
 
-  const housesData = data.data?.houses || (data.chart_data?.houses ? Object.values(data.chart_data.houses) : null);
+  const housesData = data.data?.houses || (data.chart_data?.houses ? Object.values(data.chart_data.houses) : []);
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
