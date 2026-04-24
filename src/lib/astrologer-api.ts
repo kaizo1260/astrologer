@@ -1,23 +1,35 @@
 const BASE_URL = 'https://astrologer.p.rapidapi.com/api/v5';
 
-const API_KEYS = [
-  process.env.RAPIDAPI_KEY_1!,
-  process.env.RAPIDAPI_KEY_2!,
-];
-
 let currentKeyIndex = 0;
 
+function getApiKeys(): string[] {
+  const key1 = process.env.RAPIDAPI_KEY_1;
+  const key2 = process.env.RAPIDAPI_KEY_2;
+
+  if (!key1 || !key2) {
+    throw new Error('Missing RAPIDAPI_KEY_1 or RAPIDAPI_KEY_2 environment variables');
+  }
+
+  return [key1, key2];
+}
+
 function getNextApiKey(): string {
-  const key = API_KEYS[currentKeyIndex];
-  currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
+  const keys = getApiKeys();
+  const key = keys[currentKeyIndex];
+  currentKeyIndex = (currentKeyIndex + 1) % keys.length;
   return key;
 }
 
 function getHeaders(apiKey: string) {
+  const host = process.env.RAPIDAPI_HOST;
+  if (!host) {
+    throw new Error('Missing RAPIDAPI_HOST environment variable');
+  }
+
   return {
     'Content-Type': 'application/json',
     'X-RapidAPI-Key': apiKey,
-    'X-RapidAPI-Host': process.env.RAPIDAPI_HOST!,
+    'X-RapidAPI-Host': host,
   };
 }
 
@@ -26,9 +38,10 @@ export async function callAstrologerApi<T>(
   body: Record<string, unknown>
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint}`;
+  const keys = getApiKeys();
   let lastError: Error | null = null;
 
-  for (let i = 0; i < API_KEYS.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     const apiKey = getNextApiKey();
     const headers = getHeaders(apiKey);
 
@@ -56,7 +69,7 @@ export async function callAstrologerApi<T>(
       return response.json();
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
-      if (i < API_KEYS.length - 1) {
+      if (i < keys.length - 1) {
         console.warn(`API request failed, trying next key...`);
       }
     }
