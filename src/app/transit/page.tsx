@@ -6,6 +6,7 @@ import { GlowCard } from '@/components/ui/GlowCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { RateLimitDisplay } from '@/components/ui/RateLimitDisplay';
 import { TransitForm } from '@/components/features/transit/TransitForm';
 import { TransitResult } from '@/components/features/transit/TransitResult';
 
@@ -23,6 +24,10 @@ export default function TransitPage() {
         title="Hành Tinh Hiện Tại"
         subtitle="Xem những hành tinh đang tác động đến bạn ngay bây giờ"
       />
+
+      <div className="max-w-2xl mx-auto mb-8">
+        <RateLimitDisplay className="mb-6" />
+      </div>
 
       <GlowCard className="max-w-2xl mx-auto mb-8">
         <TransitForm onSubmit={handleFetchChart} loading={loading} />

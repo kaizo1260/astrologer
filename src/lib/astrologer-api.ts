@@ -2,6 +2,11 @@ const BASE_URL = 'https://astrologer.p.rapidapi.com/api/v5';
 
 let currentKeyIndex = 0;
 
+export interface ApiRateLimitInfo {
+  limit: number;
+  remaining: number;
+}
+
 function getApiKeys(): string[] {
   const key1 = process.env.RAPIDAPI_KEY_1;
   const key2 = process.env.RAPIDAPI_KEY_2;
@@ -33,10 +38,24 @@ function getHeaders(apiKey: string) {
   };
 }
 
-export async function callAstrologerApi<T>(
+function extractRateLimitInfo(response: Response): ApiRateLimitInfo | null {
+  const limit = response.headers.get('X-RateLimit-Requests-Limit');
+  const remaining = response.headers.get('X-RateLimit-Requests-Remaining');
+
+  if (limit && remaining) {
+    return {
+      limit: parseInt(limit, 10),
+      remaining: parseInt(remaining, 10),
+    };
+  }
+
+  return null;
+}
+
+export async function callAstrologerApi<T extends Record<string, unknown>>(
   endpoint: string,
   body: Record<string, unknown>
-): Promise<T> {
+): Promise<T & { _rateLimitInfo?: ApiRateLimitInfo }> {
   const url = `${BASE_URL}${endpoint}`;
   const keys = getApiKeys();
   let lastError: Error | null = null;
@@ -53,6 +72,8 @@ export async function callAstrologerApi<T>(
         cache: 'no-store',
       });
 
+      const rateLimitInfo = extractRateLimitInfo(response);
+
       if (!response.ok) {
         const error = await response.text();
         lastError = new Error(
@@ -66,7 +87,11 @@ export async function callAstrologerApi<T>(
         throw lastError;
       }
 
-      return response.json();
+      const data = await response.json();
+      if (rateLimitInfo) {
+        data._rateLimitInfo = rateLimitInfo;
+      }
+      return data;
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
       if (i < keys.length - 1) {

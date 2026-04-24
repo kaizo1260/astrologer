@@ -5,6 +5,7 @@ import { GlowCard } from '@/components/ui/GlowCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { RateLimitDisplay } from '@/components/ui/RateLimitDisplay';
 import { MoonPhaseForm } from '@/components/features/moon-phase/MoonPhaseForm';
 import { MoonPhaseResult } from '@/components/features/moon-phase/MoonPhaseResult';
 
@@ -31,6 +32,10 @@ export default function MoonPhasePage() {
         title="Pha Mặt Trăng"
         subtitle="Khám phá pha mặt trăng hiện tại và ảnh hưởng của nó"
       />
+
+      <div className="max-w-2xl mx-auto mb-8">
+        <RateLimitDisplay className="mb-6" />
+      </div>
 
       <GlowCard className="max-w-2xl mx-auto mb-8">
         <MoonPhaseForm onSubmit={handleFetch} loading={loading} />

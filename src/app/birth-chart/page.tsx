@@ -6,6 +6,7 @@ import { GlowCard } from '@/components/ui/GlowCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { RateLimitDisplay } from '@/components/ui/RateLimitDisplay';
 import { BirthChartForm } from '@/components/features/birth-chart/BirthChartForm';
 import { BirthChartResult } from '@/components/features/birth-chart/BirthChartResult';
 
@@ -23,6 +24,10 @@ export default function BirthChartPage() {
         title="Lá Số Tử Vi"
         subtitle="Khám phá bản đồ vũ trụ lúc bạn sinh ra"
       />
+
+      <div className="max-w-2xl mx-auto mb-8">
+        <RateLimitDisplay className="mb-6" />
+      </div>
 
       <GlowCard className="max-w-2xl mx-auto mb-8">
         <BirthChartForm onSubmit={handleFetchChart} loading={loading} />

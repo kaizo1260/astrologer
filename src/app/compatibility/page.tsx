@@ -6,6 +6,7 @@ import { GlowCard } from '@/components/ui/GlowCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { RateLimitDisplay } from '@/components/ui/RateLimitDisplay';
 import { CompatibilityForm } from '@/components/features/compatibility/CompatibilityForm';
 import { CompatibilityResult } from '@/components/features/compatibility/CompatibilityResult';
 
@@ -23,6 +24,10 @@ export default function CompatibilityPage() {
         title="Hợp Tuổi"
         subtitle="Khám phá mức độ tương hợp giữa hai người"
       />
+
+      <div className="max-w-3xl mx-auto mb-8">
+        <RateLimitDisplay className="mb-6" />
+      </div>
 
       <GlowCard className="max-w-3xl mx-auto mb-8">
         <CompatibilityForm onSubmit={handleCalculate} loading={loading} />

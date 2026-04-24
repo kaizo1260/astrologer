@@ -21,7 +21,12 @@
       "Bash(curl -s http://localhost:3000/api/health)",
       "WebFetch(domain:vercel.com)",
       "Bash(curl -s https://astrologer-app-five.vercel.app/birth-chart)",
-      "Bash(curl -s http://localhost:3000/birth-chart)"
+      "Bash(curl -s http://localhost:3000/birth-chart)",
+      "Bash(curl -X POST http://localhost:3000/api/compatibility -H 'Content-Type: application/json' -d '{\"first_name\":\"John\",\"first_birth_date\":\"1990-01-01\",\"first_birth_time\":\"10:00:00\",\"first_birth_latitude\":40.7128,\"first_birth_longitude\":-74.0060,\"second_name\":\"Jane\",\"second_birth_date\":\"1992-06-15\",\"second_birth_time\":\"14:30:00\",\"second_birth_latitude\":51.5074,\"second_birth_longitude\":-0.1278}')",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(vercel env *)",
+      "Bash(vercel deploy *)",
+      "Bash(curl -X POST https://astrologer-app-five.vercel.app/api/birth-chart -H 'Content-Type: application/json' -d '{\"name\":\"John\",\"birth_date\":\"1990-01-15\",\"birth_time\":\"10:30:00\",\"birth_latitude\":40.7128,\"birth_longitude\":-74.0060}')"
     ]
   }
 }

@@ -1,5 +1,6 @@
 import { SubjectInput } from './types';
 import { getCoordinatesFromCity } from './geocoding';
+import { saveRateLimitInfo } from './rate-limit';
 
 export async function fetchBirthChart(subject: SubjectInput) {
   // Get coordinates if not provided
@@ -17,7 +18,13 @@ export async function fetchBirthChart(subject: SubjectInput) {
     body: JSON.stringify({ subject: enrichedSubject }),
   });
   if (!response.ok) throw new Error('Failed to fetch birth chart');
-  return response.json();
+  const data = await response.json();
+
+  if (data._rateLimitInfo) {
+    saveRateLimitInfo(data._rateLimitInfo);
+  }
+
+  return data;
 }
 
 export async function fetchCompatibility(
@@ -44,7 +51,13 @@ export async function fetchCompatibility(
     }),
   });
   if (!response.ok) throw new Error('Failed to fetch compatibility');
-  return response.json();
+  const data = await response.json();
+
+  if (data._rateLimitInfo) {
+    saveRateLimitInfo(data._rateLimitInfo);
+  }
+
+  return data;
 }
 
 export async function fetchMoonPhase(
@@ -72,7 +85,13 @@ export async function fetchMoonPhase(
     }),
   });
   if (!response.ok) throw new Error('Failed to fetch moon phase');
-  return response.json();
+  const data = await response.json();
+
+  if (data._rateLimitInfo) {
+    saveRateLimitInfo(data._rateLimitInfo);
+  }
+
+  return data;
 }
 
 export async function fetchTransit(
@@ -101,7 +120,13 @@ export async function fetchTransit(
     }),
   });
   if (!response.ok) throw new Error('Failed to fetch transit chart');
-  return response.json();
+  const data = await response.json();
+
+  if (data._rateLimitInfo) {
+    saveRateLimitInfo(data._rateLimitInfo);
+  }
+
+  return data;
 }
 
 export async function fetchSubject(subject: SubjectInput) {
@@ -111,7 +136,13 @@ export async function fetchSubject(subject: SubjectInput) {
     body: JSON.stringify({ subject }),
   });
   if (!response.ok) throw new Error('Failed to fetch subject data');
-  return response.json();
+  const data = await response.json();
+
+  if (data._rateLimitInfo) {
+    saveRateLimitInfo(data._rateLimitInfo);
+  }
+
+  return data;
 }
 
 async function enrichSubjectWithCoordinates(
